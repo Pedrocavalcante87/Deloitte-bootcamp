@@ -1,4 +1,4 @@
-# Dia 02 — Case 2.1: Sistema de Check-in (Console)
+# Dia 02 — Case 3.1: Sistema de Check-in (Console)
 
 ## Sobre a atividade
 
