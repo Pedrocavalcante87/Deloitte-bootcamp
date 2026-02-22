@@ -1,0 +1,123 @@
+✅ 1. Criar o projeto Web API
+No terminal, dentro da pasta Projeto de estudos:
+
+dotnet new webapi -n MinhaApi
+cd MinhaApi
+
+Esse comando já cria uma API com endpoints de exemplo (WeatherForecast) usando .NET 8.
+
+Para testar:
+
+dotnet run
+
+Ela vai rodar em algo como:
+
+Now listening on: http://localhost:5247 
+Ou algum outro número do localhost
+
+2. Criando o docker para testes locais.
+
+Baixar o Rancher Desktop para simularmos um banco de dados local.
+
+Pegar o exemplo que está no meu git-hub do arquivo docker-compose.yml
+
+Rodar no terminal docker-compose up -d
+
+3. Fazendo a conexão com o Banco de dados.
+
+Baixar o DBeaver Community no https://dbeaver.io/download/
+
+Ao abrir, clicar em nova conexão Postgres.
+
+Conectando no DBeaver
+
+Host: localhost
+Port: 5432 (ou o que você definiu em POSTGRES_PORT)
+Database: minhaapi_db
+User: postgres
+Password: postgres
+
+4. Incluir no appsettings.json a string de conexão, para dizer para a sua aplicação .NET como ela deve se conectar ao banco de dados.
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=minhaapi_db;Username=postgres;Password=postgres"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+Baixar os pacotes no terminal na pasta MinhaApi:
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+E porque não dá conflito se você está rodando o .net na porta 5247 e configuramos o banco na 5432?
+
+Porque:
+Esses dois serviços são completamente independentes.
+A API escuta na porta 5247
+O PostgreSQL escuta na porta 5432
+
+Imagine que:
+
+A API é o navegador (Chrome)
+O Postgres é o site (por exemplo, youtube.com)
+
+Eles não rodam na mesma porta, mas se conectam via endereço.
+
+
+5. Subir para o GitHub.
+
+Boa prática já ir subindo as coisas aos poucos, principalmente a estrutura inicial.
+
+Na pasta raíz do projeto, dar um git init.
+
+Depois git add. (é o mesmo que clicar ali no + do changes), leva as mudanças para stage.
+
+Após isso, commitar: git commit -m "Estrutura inicial"
+
+Adicione ao seu repositório do GitHub: git remote add origin https://github.com/rene-rojas/projeto-real-bootcamp
+
+Agora dá o push pra enviar o código pro repositório:
+
+git push -u origin master, ou git push -u origin developer, ou git push -u origin main
+
+6. Criando a classe LoteMinerio.
+
+Criar na pasta Models.
+
+7. Criando a classe do DataBase.
+
+DbContext não é uma classe sua — ela vem do Entity Framework Core.
+
+8. Criar a tabela no banco de dados Postgres direto no DBeaver. Colocar os mesmos dados que foram criadas da sua classe LoteMinerio.
+
+9. Criar uma classe DTO com todos os getters e setters.
+
+A realidade interna da aplicação
+→ Como sua API representa e armazena os dados (Models/Entities)
+
+A realidade externa
+→ O que você expõe e recebe do mundo exterior (DTOs)
+
+O Model (LoteMinerio) representa a sua entidade real do domínio
+
+O DTO (CreateLoteMinerioDto) representa o que chega pela API
+
+o DTO É o formato de entrada da API.
+Não contém campos que o cliente não deveria enviar (como Id).
+
+Pode ter regras diferentes:
+data opcional
+status como int ao invés de enum
+campos obrigatórios ou opcionais
+
+10. Criar uma classe do Controllers, que é a chamada com a API externa. Colocar como LotesMinerioController.cs
+
+
+

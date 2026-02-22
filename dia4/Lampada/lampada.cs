@@ -9,6 +9,7 @@ public class Lampada
         isligada = false;
     }
 
+
     public void Ligar()
     {
         isligada = true;

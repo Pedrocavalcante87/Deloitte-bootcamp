@@ -1,0 +1,54 @@
+@MinhaApi_HostAddress = http://localhost:5247
+
+GET {{MinhaApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+# Teste de Fila Redis - Criar Lote de Minério
+POST {{MinhaApi_HostAddress}}/api/LotesMinerio
+Content-Type: application/json
+
+{
+  "codigoLote": "MNP-2026-000137",
+  "minaOrigem": "Carajás",
+  "teorFe": 67.5,
+  "umidade": 7.2,
+  "toneladas": 1500,
+  "status": 0,
+  "localizacaoAtual": "Pátio A"
+}
+
+###
+
+# Teste - Lote Padrão
+POST {{MinhaApi_HostAddress}}/api/LotesMinerio
+Content-Type: application/json
+
+{
+  "codigoLote": "MNP-2026-000138",
+  "minaOrigem": "Itabira",
+  "teorFe": 62.0,
+  "umidade": 9.5,
+  "toneladas": 2000,
+  "status": 0,
+  "localizacaoAtual": "Pátio B"
+}
+
+###
+
+# Teste - Baixa Qualidade
+POST {{MinhaApi_HostAddress}}/api/LotesMinerio
+Content-Type: application/json
+
+{
+  "codigoLote": "MNP-2026-000139",
+  "minaOrigem": "Minas Centrais",
+  "teorFe": 55.0,
+  "umidade": 12.0,
+  "toneladas": 1200,
+  "status": 0,
+  "localizacaoAtual": "Pátio C"
+}
+
+###
